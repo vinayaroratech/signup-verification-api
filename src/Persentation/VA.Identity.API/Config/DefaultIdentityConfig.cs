@@ -25,7 +25,7 @@ namespace VA.Identity.API.Config
                      options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
                             b => b.MigrationsAssembly(typeof(Infrastructure.Abstractions).Assembly.FullName)));
             }
-            else if (!configuration.GetValue<bool>("UseInMemoryDatabase") 
+            else if (!configuration.GetValue<bool>("UseInMemoryDatabase")
                     && configuration.GetValue<string>("DBProvider").ToLower().Equals("postgresql"))
             {
                 services.AddIdentityEntityFrameworkContextConfiguration(options =>

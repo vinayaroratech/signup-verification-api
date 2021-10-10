@@ -41,7 +41,7 @@ namespace VA.Identity.Application.Common.Behaviours
             if (elapsedMilliseconds > 500)
             {
                 string requestName = typeof(TRequest).Name;
-                var userId = _currentUserService.GetUserId();
+                System.Guid userId = _currentUserService.GetUserId();
                 string userName = string.Empty;
 
                 if (userId != System.Guid.Empty)

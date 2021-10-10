@@ -1,5 +1,5 @@
-﻿using VA.Identity.Application.Common.Interfaces;
-using System;
+﻿using System;
+using VA.Identity.Application.Common.Interfaces;
 
 namespace VA.Identity.Infrastructure.Services
 {

@@ -25,7 +25,7 @@ namespace VA.Identity.API.Controllers
                 return CustomResponse(ModelState);
             }
 
-            var result = await Mediator.Send(command);
+            Application.Common.Models.Result<Application.Jwt.Model.UserResponse<string>> result = await Mediator.Send(command);
 
             if (result.Succeeded)
             {
@@ -48,7 +48,7 @@ namespace VA.Identity.API.Controllers
                 return CustomResponse(ModelState);
             }
 
-            var result = await Mediator.Send(command);
+            Application.Common.Models.Result<Application.Jwt.Model.UserResponse<string>> result = await Mediator.Send(command);
 
             if (result.Succeeded)
             {

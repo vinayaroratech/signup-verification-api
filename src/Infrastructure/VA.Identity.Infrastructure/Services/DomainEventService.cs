@@ -1,10 +1,10 @@
-﻿using VA.Identity.Application.Common.Interfaces;
-using VA.Identity.Application.Common.Models;
-using VA.Identity.Domain.Common;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
+using VA.Identity.Application.Common.Interfaces;
+using VA.Identity.Application.Common.Models;
+using VA.Identity.Domain.Common;
 
 namespace VA.Identity.Infrastructure.Services
 {

@@ -1,8 +1,8 @@
-﻿using VA.Identity.Application.Common.Interfaces;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Threading.Tasks;
+using VA.Identity.Application.Common.Interfaces;
 
 namespace VA.Identity.Infrastructure.Services
 {
@@ -21,7 +21,7 @@ namespace VA.Identity.Infrastructure.Services
             string plainTextMessage,
             string htmlMessage)
         {
-            var response = await Execute(Options.ApiKey, subject, plainTextMessage, htmlMessage, email);
+            Response response = await Execute(Options.ApiKey, subject, plainTextMessage, htmlMessage, email);
             return response.IsSuccessStatusCode;
         }
 
@@ -32,8 +32,8 @@ namespace VA.Identity.Infrastructure.Services
             string htmlMessage,
             string email)
         {
-            var client = new SendGridClient(apiKey);
-            var msg = new SendGridMessage()
+            SendGridClient client = new SendGridClient(apiKey);
+            SendGridMessage msg = new SendGridMessage()
             {
                 From = new EmailAddress(Options.SenderEmail, Options.SenderName),
                 Subject = subject,

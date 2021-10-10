@@ -26,7 +26,7 @@ namespace VA.Identity.Application.Common.Behaviours
         public async Task Process(TRequest request, CancellationToken cancellationToken)
         {
             string requestName = typeof(TRequest).Name;
-            var userId = _currentUserService.GetUserId();
+            System.Guid userId = _currentUserService.GetUserId();
             string userName = string.Empty;
 
             if (userId != System.Guid.Empty)

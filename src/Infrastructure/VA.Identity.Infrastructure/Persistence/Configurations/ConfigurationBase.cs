@@ -1,6 +1,6 @@
-﻿using VA.Identity.Domain.Common;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using VA.Identity.Domain.Common;
 
 namespace VA.Identity.Infrastructure.Persistence.Configurations
 {
