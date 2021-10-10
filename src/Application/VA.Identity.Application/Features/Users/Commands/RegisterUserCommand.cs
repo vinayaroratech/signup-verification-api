@@ -80,6 +80,37 @@ namespace VA.Identity.Application.Features.Users.Commands
                 .WithUserRoles()
                 .BuildUserResponse();
         }
+
+        private string GetFullJwt(string email)
+        {
+            return new JwtBuilder()
+                .WithUserManager(_userManager)
+                .WithJwtSettings(_appJwtSettings)
+                .WithEmail(email)
+                .WithJwtClaims()
+                .WithUserClaims()
+                .WithUserRoles()
+                .BuildToken();
+        }
+
+        private string GetJwtWithoutClaims(string email)
+        {
+            return new JwtBuilder()
+                .WithUserManager(_userManager)
+                .WithJwtSettings(_appJwtSettings)
+                .WithEmail(email)
+                .BuildToken();
+        }
+
+        private string GetJwtWithUserClaims(string email)
+        {
+            return new JwtBuilder()
+                .WithUserManager(_userManager)
+                .WithJwtSettings(_appJwtSettings)
+                .WithEmail(email)
+                .WithUserClaims()
+                .BuildToken();
+        }
     }
 
 }

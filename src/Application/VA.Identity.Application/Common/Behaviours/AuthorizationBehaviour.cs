@@ -7,16 +7,17 @@ using System.Threading.Tasks;
 using VA.Identity.Application.Common.Exceptions;
 using VA.Identity.Application.Common.Interfaces;
 using VA.Identity.Application.Common.Security;
+using VA.Identity.Application.Jwt;
 
 namespace VA.Identity.Application.Common.Behaviours
 {
     public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {
-        private readonly ICurrentUserService _currentUserService;
+        private readonly ICurrentUserContext _currentUserService;
         private readonly IIdentityService _identityService;
 
         public AuthorizationBehaviour(
-            ICurrentUserService currentUserService
+            ICurrentUserContext currentUserService
             //IIdentityService identityService
             )
         {
@@ -31,7 +32,7 @@ namespace VA.Identity.Application.Common.Behaviours
             if (authorizeAttributes.Any())
             {
                 // Must be authenticated user
-                if (_currentUserService.UserId == null)
+                if (_currentUserService.GetUserId() == Guid.Empty)
                 {
                     throw new UnauthorizedAccessException();
                 }

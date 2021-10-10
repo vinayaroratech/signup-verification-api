@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using VA.Identity.Application.Common.Interfaces;
+using VA.Identity.Application.Jwt;
 
 namespace VA.Identity.Application.Common.Behaviours
 {
@@ -11,12 +12,12 @@ namespace VA.Identity.Application.Common.Behaviours
     {
         private readonly Stopwatch _timer;
         private readonly ILogger<TRequest> _logger;
-        private readonly ICurrentUserService _currentUserService;
+        private readonly ICurrentUserContext _currentUserService;
         private readonly IIdentityService _identityService;
 
         public PerformanceBehaviour(
             ILogger<TRequest> logger,
-            ICurrentUserService currentUserService
+            ICurrentUserContext currentUserService
             //IIdentityService identityService
             )
         {
@@ -40,10 +41,10 @@ namespace VA.Identity.Application.Common.Behaviours
             if (elapsedMilliseconds > 500)
             {
                 string requestName = typeof(TRequest).Name;
-                string userId = _currentUserService.UserId ?? string.Empty;
+                var userId = _currentUserService.GetUserId();
                 string userName = string.Empty;
 
-                if (!string.IsNullOrEmpty(userId))
+                if (userId != System.Guid.Empty)
                 {
                     await Task.CompletedTask;
                     //userName = await _identityService.GetUserNameAsync(userId);

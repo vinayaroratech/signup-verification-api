@@ -3,17 +3,18 @@ using Microsoft.Extensions.Logging;
 using System.Threading;
 using System.Threading.Tasks;
 using VA.Identity.Application.Common.Interfaces;
+using VA.Identity.Application.Jwt;
 
 namespace VA.Identity.Application.Common.Behaviours
 {
     public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest>
     {
         private readonly ILogger _logger;
-        private readonly ICurrentUserService _currentUserService;
+        private readonly ICurrentUserContext _currentUserService;
         private readonly IIdentityService _identityService;
 
         public LoggingBehaviour(ILogger<TRequest> logger,
-            ICurrentUserService currentUserService
+            ICurrentUserContext currentUserService
             //IIdentityService identityService
             )
         {
@@ -25,10 +26,10 @@ namespace VA.Identity.Application.Common.Behaviours
         public async Task Process(TRequest request, CancellationToken cancellationToken)
         {
             string requestName = typeof(TRequest).Name;
-            string userId = _currentUserService.UserId ?? string.Empty;
+            var userId = _currentUserService.GetUserId();
             string userName = string.Empty;
 
-            if (!string.IsNullOrEmpty(userId))
+            if (userId != System.Guid.Empty)
             {
                 await Task.CompletedTask;
                 //userName = await _identityService.GetUserNameAsync(userId);
