@@ -23,7 +23,7 @@ namespace VA.Identity.Application.Common.Behaviours
             }
             catch (Exception ex)
             {
-                var requestName = typeof(TRequest).Name;
+                string requestName = typeof(TRequest).Name;
 
                 _logger.LogError(ex, "Land Request: Unhandled Exception for Request {Name} {@Request}", requestName, request);
 

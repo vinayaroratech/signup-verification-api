@@ -1,7 +1,7 @@
-﻿using VA.Identity.Domain.Common;
-using VA.Identity.Domain.Exceptions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using VA.Identity.Domain.Common;
+using VA.Identity.Domain.Exceptions;
 
 namespace VA.Identity.Domain.ValueObjects
 {
@@ -22,7 +22,7 @@ namespace VA.Identity.Domain.ValueObjects
 
         public static Colour From(string code)
         {
-            var colour = new Colour { Code = code };
+            Colour colour = new Colour { Code = code };
 
             if (!SupportedColours.Contains(colour))
             {

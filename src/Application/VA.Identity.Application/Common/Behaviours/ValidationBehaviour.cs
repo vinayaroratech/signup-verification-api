@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using FluentValidation;
+using MediatR;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using FluentValidation;
-using MediatR;
 using ValidationException = VA.Identity.Application.Common.Exceptions.ValidationException;
 
 namespace VA.Identity.Application.Common.Behaviours
@@ -22,13 +22,15 @@ namespace VA.Identity.Application.Common.Behaviours
         {
             if (_validators.Any())
             {
-                var context = new ValidationContext<TRequest>(request);
+                ValidationContext<TRequest> context = new ValidationContext<TRequest>(request);
 
-                var validationResults = await Task.WhenAll(_validators.Select(v => v.ValidateAsync(context, cancellationToken)));
-                var failures = validationResults.SelectMany(r => r.Errors).Where(f => f != null).ToList();
+                FluentValidation.Results.ValidationResult[] validationResults = await Task.WhenAll(_validators.Select(v => v.ValidateAsync(context, cancellationToken)));
+                List<FluentValidation.Results.ValidationFailure> failures = validationResults.SelectMany(r => r.Errors).Where(f => f != null).ToList();
 
                 if (failures.Count != 0)
+                {
                     throw new ValidationException(failures);
+                }
             }
             return await next();
         }

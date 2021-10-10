@@ -30,7 +30,7 @@ namespace VA.Identity.Domain.Common
                 return false;
             }
 
-            var other = (ValueObject)obj;
+            ValueObject other = (ValueObject)obj;
             return GetEqualityComponents().SequenceEqual(other.GetEqualityComponents());
         }
 

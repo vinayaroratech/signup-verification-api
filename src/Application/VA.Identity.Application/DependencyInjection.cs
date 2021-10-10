@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using FluentValidation;
-using VA.Identity.Application.Common.Behaviours;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 using System.Reflection;
+using VA.Identity.Application.Common.Behaviours;
 
 namespace VA.Identity.Application
 {
@@ -25,24 +25,24 @@ namespace VA.Identity.Application
 
         public static IServiceCollection AddFluentValidation(this IServiceCollection services, Assembly assembly)
         {
-            var validatorType = typeof(IValidator<>);
+            System.Type validatorType = typeof(IValidator<>);
 
-            var validatorTypes = assembly
+            System.Collections.Generic.List<System.Type> validatorTypes = assembly
                 .GetExportedTypes()
                 .Where(t => t.GetInterfaces().Any(i =>
                     i.IsGenericType &&
                     i.GetGenericTypeDefinition() == validatorType))
                 .ToList();
 
-            foreach (var validator in validatorTypes)
+            foreach (System.Type validator in validatorTypes)
             {
-                var requestType = validator.GetInterfaces()
+                System.Type requestType = validator.GetInterfaces()
                     .Where(i => i.IsGenericType &&
                         i.GetGenericTypeDefinition() == typeof(IValidator<>))
                     .Select(i => i.GetGenericArguments()[0])
                     .First();
 
-                var validatorInterface = validatorType
+                System.Type validatorInterface = validatorType
                     .MakeGenericType(requestType);
 
                 services.AddTransient(validatorInterface, validator);

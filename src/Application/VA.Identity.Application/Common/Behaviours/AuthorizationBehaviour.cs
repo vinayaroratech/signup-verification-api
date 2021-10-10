@@ -1,12 +1,12 @@
-﻿using VA.Identity.Application.Common.Exceptions;
-using VA.Identity.Application.Common.Interfaces;
-using VA.Identity.Application.Common.Security;
-using MediatR;
+﻿using MediatR;
 using System;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using VA.Identity.Application.Common.Exceptions;
+using VA.Identity.Application.Common.Interfaces;
+using VA.Identity.Application.Common.Security;
 
 namespace VA.Identity.Application.Common.Behaviours
 {
@@ -26,7 +26,7 @@ namespace VA.Identity.Application.Common.Behaviours
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
-            var authorizeAttributes = request.GetType().GetCustomAttributes<AuthorizeAttribute>();
+            System.Collections.Generic.IEnumerable<AuthorizeAttribute> authorizeAttributes = request.GetType().GetCustomAttributes<AuthorizeAttribute>();
 
             if (authorizeAttributes.Any())
             {
@@ -37,16 +37,16 @@ namespace VA.Identity.Application.Common.Behaviours
                 }
 
                 // Role-based authorization
-                var authorizeAttributesWithRoles = authorizeAttributes.Where(a => !string.IsNullOrWhiteSpace(a.Roles));
+                System.Collections.Generic.IEnumerable<AuthorizeAttribute> authorizeAttributesWithRoles = authorizeAttributes.Where(a => !string.IsNullOrWhiteSpace(a.Roles));
 
                 if (authorizeAttributesWithRoles.Any())
                 {
-                    foreach (var roles in authorizeAttributesWithRoles.Select(a => a.Roles.Split(',')))
+                    foreach (string[] roles in authorizeAttributesWithRoles.Select(a => a.Roles.Split(',')))
                     {
-                        var authorized = false;
-                        foreach (var role in roles)
+                        bool authorized = false;
+                        foreach (string role in roles)
                         {
-                            var isInRole = true;// await _identityService.IsInRoleAsync(_currentUserService.UserId, role.Trim());
+                            bool isInRole = true;// await _identityService.IsInRoleAsync(_currentUserService.UserId, role.Trim());
                             if (isInRole)
                             {
                                 authorized = true;
@@ -63,12 +63,12 @@ namespace VA.Identity.Application.Common.Behaviours
                 }
 
                 // Policy-based authorization
-                var authorizeAttributesWithPolicies = authorizeAttributes.Where(a => !string.IsNullOrWhiteSpace(a.Policy));
+                System.Collections.Generic.IEnumerable<AuthorizeAttribute> authorizeAttributesWithPolicies = authorizeAttributes.Where(a => !string.IsNullOrWhiteSpace(a.Policy));
                 if (authorizeAttributesWithPolicies.Any())
                 {
-                    foreach (var policy in authorizeAttributesWithPolicies.Select(a => a.Policy))
+                    foreach (string policy in authorizeAttributesWithPolicies.Select(a => a.Policy))
                     {
-                        var authorized = true;// await _identityService.AuthorizeAsync(_currentUserService.UserId, policy);
+                        bool authorized = true;// await _identityService.AuthorizeAsync(_currentUserService.UserId, policy);
 
                         if (!authorized)
                         {

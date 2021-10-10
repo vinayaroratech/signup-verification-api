@@ -1,5 +1,5 @@
-﻿using VA.Identity.Application.Common.Models;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using VA.Identity.Application.Common.Models;
 
 namespace VA.Identity.Application.Common.Interfaces
 {

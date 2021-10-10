@@ -1,5 +1,5 @@
-﻿using VA.Identity.Domain.Common;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using VA.Identity.Domain.Common;
 
 namespace VA.Identity.Application.Common.Interfaces
 {

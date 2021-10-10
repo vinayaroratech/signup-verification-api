@@ -1,8 +1,8 @@
-﻿using VA.Identity.Application.Common.Interfaces;
-using MediatR.Pipeline;
+﻿using MediatR.Pipeline;
 using Microsoft.Extensions.Logging;
 using System.Threading;
 using System.Threading.Tasks;
+using VA.Identity.Application.Common.Interfaces;
 
 namespace VA.Identity.Application.Common.Behaviours
 {
@@ -12,7 +12,7 @@ namespace VA.Identity.Application.Common.Behaviours
         private readonly ICurrentUserService _currentUserService;
         private readonly IIdentityService _identityService;
 
-        public LoggingBehaviour(ILogger<TRequest> logger, 
+        public LoggingBehaviour(ILogger<TRequest> logger,
             ICurrentUserService currentUserService
             //IIdentityService identityService
             )
@@ -24,8 +24,8 @@ namespace VA.Identity.Application.Common.Behaviours
 
         public async Task Process(TRequest request, CancellationToken cancellationToken)
         {
-            var requestName = typeof(TRequest).Name;
-            var userId = _currentUserService.UserId ?? string.Empty;
+            string requestName = typeof(TRequest).Name;
+            string userId = _currentUserService.UserId ?? string.Empty;
             string userName = string.Empty;
 
             if (!string.IsNullOrEmpty(userId))

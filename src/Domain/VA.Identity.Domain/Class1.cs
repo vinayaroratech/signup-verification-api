@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace VA.Identity.Domain
+﻿namespace VA.Identity.Domain
 {
     public class Class1
     {

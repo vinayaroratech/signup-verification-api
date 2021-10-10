@@ -1,5 +1,5 @@
-﻿using VA.Identity.Domain.Common;
-using MediatR;
+﻿using MediatR;
+using VA.Identity.Domain.Common;
 
 namespace VA.Identity.Application.Common.Models
 {
