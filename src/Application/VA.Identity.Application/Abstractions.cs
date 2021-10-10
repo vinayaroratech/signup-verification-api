@@ -8,7 +8,7 @@ using VA.Identity.Application.Common.Behaviours;
 
 namespace VA.Identity.Application
 {
-    public static class DependencyInjection
+    public static class Abstractions
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
